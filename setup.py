@@ -20,10 +20,10 @@ setup(
     include_package_data=True,
     install_requires=[
         "twisted",
-        "PyYAML"
-        "requests"
+        "PyYAML",
+        "requests",
         "treq",
-        "pika"
+        "pika",
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
