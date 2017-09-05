@@ -23,7 +23,7 @@ setup(
         "PyYAML",
         "requests",
         "treq",
-        "pika",
+        "pika==0.10.0",
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
