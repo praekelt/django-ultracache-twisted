@@ -1,6 +1,7 @@
 """Monitor service to consume RabbitMQ messages. This twisted plugin typically
 runs on each node that runs a reverse caching proxy like Nginx or Varnish."""
 
+import json
 import traceback
 
 import pika
@@ -65,22 +66,30 @@ class PurgeService(service.Service):
                 break
             ch, method, properties, body = thing
             if body:
-                path = body
-                self.log("Purging %s" % path)
+                try:
+                    di = json.loads(body)
+                except ValueError:
+                    path = body
+                    headers = {}
+                else:
+                    path = di["path"]
+                    headers = di["headers"]
+                self.log("Purging %s with headers %s" % (path, str(headers)))
                 domain = self.config.get("domain", None)
                 try:
                     if domain:
                         response = yield treq.request(
                             "PURGE", "http://" \
                                 + self.config.get("proxy-address", "127.0.0.1") + path,
-                            headers={"Host": domain},
+                            headers={"Host": domain}.update(headers),
                             timeout=10
                         )
                     else:
                         response = yield treq.request(
                             "PURGE", "http://" \
                                 + self.config.get("proxy-address", "127.0.0.1") + path,
-                            timeout=10
+                            timeout=10,
+                            headers=headers
                         )
                 except Exception as exception:
                     msg = traceback.format_exc()
