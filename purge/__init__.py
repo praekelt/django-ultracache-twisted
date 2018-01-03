@@ -78,10 +78,12 @@ class PurgeService(service.Service):
                 domain = self.config.get("domain", None)
                 try:
                     if domain:
+                        final_headers = {"Host": domain}
+                        final_headers.update(headers)
                         response = yield treq.request(
                             "PURGE", "http://" \
                                 + self.config.get("proxy-address", "127.0.0.1") + path,
-                            headers={"Host": domain}.update(headers),
+                            headers=final_headers,
                             timeout=10
                         )
                     else:
