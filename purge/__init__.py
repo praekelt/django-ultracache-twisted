@@ -50,7 +50,7 @@ class PurgeService(service.Service):
     @defer.inlineCallbacks
     def setup_connection(self, connection):
         self.channel = yield connection.channel()
-        yield self.channel.exchange_declare(exchange="purgatory", type="fanout")
+        yield self.channel.exchange_declare(exchange="purgatory", exchange_type="fanout")
         result = yield self.channel.queue_declare(exclusive=True)
         queue_name = result.method.queue
         yield self.channel.queue_bind(exchange="purgatory", queue=queue_name)
