@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="django-ultracache-twisted",
-    version="0.0.2",
+    version="0.0.3",
     url="http://github.com/praekelt/django-ultracache-twisted",
     license="BSD",
     description="Companion app to django-ultracache that enables proxy invalidation",
