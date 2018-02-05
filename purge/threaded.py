@@ -1,9 +1,11 @@
 import json
+import traceback
 from multiprocessing.pool import ThreadPool
 from optparse import OptionParser
 from time import sleep
 
 import pika
+import requests
 import yaml
 
 
@@ -89,7 +91,7 @@ class Consumer:
                 msg = traceback.format_exc()
                 self.log("Error purging %s: %s" % (path, msg))
             else:
-                content = response.content()
+                content = response.content
 
     def consume(self):
         loop = True
