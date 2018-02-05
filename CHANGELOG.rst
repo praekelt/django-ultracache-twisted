@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Provide a threaded implementation as well. Turns out Twisted is overkill and there is a bug around reconnecting to RabbitMQ.
+
 0.0.3
 -----
 #. The payload may now be JSON encoded. The old string only behavior is still supported, enabling the service to run with older versions of `django-ultracache`.
