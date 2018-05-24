@@ -61,14 +61,14 @@ class Consumer:
     def handle_message(self, body):
         if body:
             try:
+                if isinstance(body, bytes):
+                    body = body.decode("utf-8")
                 di = json.loads(body)
             except ValueError:
                 path = body
                 headers = {}
             except Exception as exception:
                 msg = traceback.format_exc()
-                print("shit")
-                print(msg)
                 self.log("Error parsing body: %s" % body)
             else:
                 path = di["path"]
