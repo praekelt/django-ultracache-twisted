@@ -17,9 +17,8 @@ Installation
 Running from the CLI
 --------------------
 
-    virtualenv example/ve
-    ./example/ve/bin/pip install -r example/requirements.txt
-    ./example/dev-purge.sh
-    OR
-    ./example/dev-purge-threaded.sh
+    virtualenv ve
+    ./ve/bin/python purge.threaded
+    or
+    ./ve/bin/python purge.threaded --config /path/to/config.yaml
 

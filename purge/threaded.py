@@ -29,6 +29,9 @@ class Consumer:
         name = self.config.get("logfile", None)
         if not name:
             return
+        if name == "stdout":
+            print(msg)
+            return
         fp = open(name, "a")
         try:
             fp.write(msg + "\n")
