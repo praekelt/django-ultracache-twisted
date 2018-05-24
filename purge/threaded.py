@@ -65,6 +65,11 @@ class Consumer:
             except ValueError:
                 path = body
                 headers = {}
+            except Exception as exception:
+                msg = traceback.format_exc()
+                print("shit")
+                print(msg)
+                self.log("Error parsing body: %s" % body)
             else:
                 path = di["path"]
                 headers = di["headers"]
